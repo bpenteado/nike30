@@ -1,20 +1,20 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import json
 
-def retrieve_deals(websites):
 
-	retrieved_deals = []
+def retrieve_current_deals(websites):
 
 	# scrape websites
+	retrieved_deals = []
 	content = scrape_websites(websites)
 
-	# retrieve each
+	# retrieve deals from each website
 	for website, content in content.items():
 		if website == "Running Warehouse":
 			retrieved_deals += retrieve_rw(content)
 
 	return retrieved_deals
+
 
 def scrape_websites(websites):
 
@@ -32,6 +32,7 @@ def scrape_websites(websites):
 
 	driver.quit()
 	return content_dict
+
 
 def retrieve_rw(content):
 

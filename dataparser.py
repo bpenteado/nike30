@@ -1,9 +1,7 @@
-import json
-import smtplib
 from textwrap import dedent
 
 
-def select_new_deals(new_list, old_list):
+def filter_new_deals(new_list, old_list):
     return [deal for deal in new_list if deal not in old_list]
 
 
@@ -52,40 +50,3 @@ def generate_email_body(deal_list):
         message += dedent(deal_message)
 
     return message
-
-
-# pull all current deals from website
-with open('currentDeals.json') as data:
-    current_deals = json.load(data)
-
-# pull all old deals from website
-with open('oldDeals.json') as data:
-    old_deals = json.load(data)
-
-# select new deals in website
-new_deals = select_new_deals(current_deals, old_deals)
-
-# filter new deals in website
-best_deals = filter_deals(new_deals, 0.3, ['M9.5', 'M9.0', '9.5 D', '9.0 D'])
-
-# update old deals list with current deals
-with open('oldDeals.json', 'w') as data:
-    json.dump(current_deals, data)
-
-new_deals = current_deals[:3]
-
-if new_deals:
-    # set up SMTP connection
-    conn = smtplib.SMTP('smtp.gmail.com', 587)
-    conn.ehlo()
-    conn.starttls()
-    conn.login('bernardopbf3@gmail.com', 'ksnczdktlbwzajzl')
-
-    # create email message
-    message = generate_email_body(new_deals)
-
-    # send email
-    conn.sendmail('bernardopbf3@gmail.com', ['bernardopbf3@gmail.com'], message)
-    conn.quit()
-
-    print("Emails Sent!")
