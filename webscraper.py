@@ -2,9 +2,13 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import json
 
-driver = webdriver.Firefox()
+# initialize webdriver
+options = webdriver.firefox.options.Options()
+options.headless = True
+driver = webdriver.Firefox(options = options)
 driver.get('https://www.runningwarehouse.com/catpage-SALEMS.html')
 
+# scrape website
 url = driver.page_source
 content = BeautifulSoup(url, "html.parser")
 
@@ -26,7 +30,11 @@ for deal in deals:
 
 	# extract pricing information
 	pricing_tag = deal.find('span', attrs={"class": "pricing"})
-	sale_price = float(pricing_tag.find('span', attrs={"class": "sale"}).text[1:])
+	sale_price = pricing_tag.find('span', attrs={"class": "sale"}) # sale price class seems to change in Running Warehouse
+	if sale_price:
+		sale_price = float(sale_price.text[1:])
+	else:
+		sale_price = float(pricing_tag.find('span', attrs={"class": "price"}).text[1:])
 	initial_price = float(pricing_tag.find('span', attrs={"class": "list strike"}).text[1:])
 
 	# store shoe information
@@ -44,3 +52,4 @@ for deal in deals:
 with open('currentDeals.json', 'w') as outfile:
 	json.dump(deal_arr, outfile)
 
+driver.quit()
