@@ -2,54 +2,73 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import json
 
-# initialize webdriver
-options = webdriver.firefox.options.Options()
-options.headless = True
-driver = webdriver.Firefox(options = options)
-driver.get('https://www.runningwarehouse.com/catpage-SALEMS.html')
+def retrieve_deals(websites):
 
-# scrape website
-url = driver.page_source
-content = BeautifulSoup(url, "html.parser")
+	retrieved_deals = []
 
-# extract all deals
-deals = content.findAll('div', attrs={"class": "product_wrapper cf gtm_impression"})
+	# scrape websites
+	content = scrape_websites(websites)
 
-# extract name, link, sizing, and pricing information from each deal
-deal_arr = []
-for deal in deals:
+	# retrieve each
+	for website, content in content.items():
+		if website == "Running Warehouse":
+			retrieved_deals += retrieve_rw(content)
 
-	# extract shoe name and link
-	shoe = deal.find('div', attrs={"class":"name"})
-	shoe_name = shoe.text
-	shoe_link = shoe.find('a')['href']
+	return retrieved_deals
 
-	# extract sizing information
-	sizes_tag = deal.find('span', attrs={"class":"sizes"})
-	sizes = sizes_tag.text if sizes_tag is not None else "All"
+def scrape_websites(websites):
 
-	# extract pricing information
-	pricing_tag = deal.find('span', attrs={"class": "pricing"})
-	sale_price = pricing_tag.find('span', attrs={"class": "sale"}) # sale price class seems to change in Running Warehouse
-	if sale_price:
-		sale_price = float(sale_price.text[1:])
-	else:
-		sale_price = float(pricing_tag.find('span', attrs={"class": "price"}).text[1:])
-	initial_price = float(pricing_tag.find('span', attrs={"class": "list strike"}).text[1:])
+	# initialize webdriver
+	options = webdriver.firefox.options.Options()
+	options.headless = True
+	driver = webdriver.Firefox(options=options)
 
-	# store shoe information
-	new_deal = {
-		"shoeName": shoe_name,
-		"shoeLink": shoe_link,
-		"sizes": sizes,
-		"salePrice": sale_price,
-		"initialPrice": initial_price
-	}
+	content_dict = {}
+	for website, url in websites.items():
+		driver.get(url)
+		source = driver.page_source
+		content = BeautifulSoup(source, "html.parser")
+		content_dict.update({website: content})
 
-	deal_arr += [new_deal]
+	driver.quit()
+	return content_dict
 
-# store data in JSON format
-with open('currentDeals.json', 'w') as outfile:
-	json.dump(deal_arr, outfile)
+def retrieve_rw(content):
 
-driver.quit()
+	# extract all deals
+	deal_content = content.findAll('div', attrs={"class": "product_wrapper cf gtm_impression"})
+
+	# extract name, link, sizing, and pricing information from each deal
+	deals = []
+	for deal in deal_content:
+
+		# extract shoe name and link
+		shoe = deal.find('div', attrs={"class":"name"})
+		shoe_name = shoe.text
+		shoe_link = shoe.find('a')['href']
+
+		# extract sizing information
+		sizes_tag = deal.find('span', attrs={"class": "sizes"})
+		sizes = sizes_tag.text if sizes_tag is not None else "All"
+
+		# extract pricing information
+		pricing_tag = deal.find('span', attrs={"class": "pricing"})
+		sale_price = pricing_tag.find('span', attrs={"class": "sale"})  # sale price class seems to change in RW
+		if sale_price:
+			sale_price = float(sale_price.text[1:])
+		else:
+			sale_price = float(pricing_tag.find('span', attrs={"class": "price"}).text[1:])
+		initial_price = float(pricing_tag.find('span', attrs={"class": "list strike"}).text[1:])
+
+		# store shoe information
+		new_deal = {
+			"shoeName": shoe_name,
+			"shoeLink": shoe_link,
+			"sizes": sizes,
+			"salePrice": sale_price,
+			"initialPrice": initial_price
+		}
+
+		deals += [new_deal]
+
+	return deals
