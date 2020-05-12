@@ -21,7 +21,7 @@ def scrape_websites(websites):
 	# initialize webdriver
 	options = webdriver.firefox.options.Options()
 	options.headless = True
-	driver = webdriver.Firefox(options=options)
+	driver = webdriver.Firefox(executable_path="Users/bernardopenteado/.envs/nike30/geckodriver.exe", options=options, service_log_path="Users/bernardopenteado/.envs/nike30/geckodriver.log")
 
 	content_dict = {}
 	for website, url in websites.items():

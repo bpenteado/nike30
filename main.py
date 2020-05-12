@@ -12,11 +12,11 @@ valid_sizes = ['M9.5', 'M9.0', '9.5 D', '9.0 D']
 current_deals = retrieve_current_deals(websites)
 
 # store data in JSON format
-with open('currentDeals.json', 'w') as outfile:
+with open('/Users/bernardopenteado/Desktop/Projects/Nike30%/currentDeals.json', 'w') as outfile:
     json.dump(current_deals, outfile)
 
 # parse data (retrieve relevant new deals)
-with open('oldDeals.json') as data:  # pull all old deals from website
+with open('/Users/bernardopenteado//Desktop/Projects/Nike30%/oldDeals.json') as data:  # pull all old deals from website
     old_deals = json.load(data)
 new_deals = filter_new_deals(current_deals, old_deals)  # check for new deals
 filtered_new_deals = filter_deals(new_deals, min_discount, valid_sizes)  # filter new deals according to params
@@ -37,5 +37,7 @@ if filtered_new_deals:
     conn.quit()
 
 # update old deals with current_deals
-with open('oldDeals.json', 'w') as data:
+with open('/Users/bernardopenteado//Desktop/Projects/Nike30%/oldDeals.json', 'w') as data:
     json.dump(current_deals, data)
+
+print("OK")
