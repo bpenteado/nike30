@@ -3,18 +3,38 @@ from dataparser import filter_new_deals, filter_deals, generate_email_body
 import json
 import smtplib
 
-# parameters
+# default parameters
 websites = {"Running Warehouse": 'https://www.runningwarehouse.com/catpage-SALEMS.html'}
-min_discount = 0.3
-valid_sizes = ['M9.5', 'M9.0', '9.5 D', '9.0 D']
-gecko_exe_path = "/Users/bernardopenteado/.envs/nike30/geckodriver.exe"
-gecko_log_path = "/Users/bernardopenteado/.envs/nike30/geckodriver.log"
-current_deals_path = '/Users/bernardopenteado/Desktop/Projects/Nike30%/currentDeals.json'
-old_deals_path = '/Users/bernardopenteado/Desktop/Projects/Nike30%/oldDeals.json'
-email_login = 'bernardopbf3@gmail.com'
-email_pass = 'ksnczdktlbwzajzl'
-smtp_host = 'smtp.gmail.com'
-smtp_port = 587
+current_deals_path = '../currentDeals.json'
+old_deals_path = '../oldDeals.json'
+
+# parse JSON with user parameters
+with open("./params.json", 'r') as file:
+    user_params = json.load(file)
+
+# set preferences
+user_preferences = user_params["preferences"]
+min_discount = user_preferences["minDiscount"]
+user_sex = user_preferences["userSex"]
+user_sizes = user_preferences["userSizes"]
+
+# set Gecko paths
+user_paths = user_params["paths"]
+gecko_exe_path = user_paths["geckoExe"]
+gecko_log_path = user_paths["geckoLog"]
+
+# set SMTP parameters
+user_smtp = user_params["smtpParams"]
+email_login = user_smtp["login"]
+email_pass = user_smtp["pass"]
+smtp_host = user_smtp["host"]
+smtp_port = user_smtp["port"]
+
+# # determine valid sizes on RW based on user sex and sizes
+valid_sizes = []
+for size in user_sizes:
+    valid_sizes += [user_sex + size]
+    valid_sizes += [size + " D"]
 
 # scrape websites
 current_deals = retrieve_current_deals(websites, gecko_exe_path, gecko_log_path)
