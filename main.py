@@ -2,14 +2,17 @@ from webscraper import retrieve_current_deals
 from dataparser import filter_new_deals, filter_deals, generate_email_body
 import json
 import smtplib
+import os
 
 # default parameters
+current_dir = os.path.dirname(__file__)
 websites = {"Running Warehouse": 'https://www.runningwarehouse.com/catpage-SALEMS.html'}
-current_deals_path = '../currentDeals.json'
-old_deals_path = '../oldDeals.json'
+current_deals_path = current_dir + '/currentDeals.json'
+old_deals_path = current_dir + '/oldDeals.json'
+params_path = current_dir + '/params_be.json'
 
 # parse JSON with user parameters
-with open("./params.json", 'r') as file:
+with open(params_path, 'r') as file:
     user_params = json.load(file)
 
 # set preferences
