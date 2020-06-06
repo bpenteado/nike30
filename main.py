@@ -9,7 +9,7 @@ current_dir = os.path.dirname(__file__)
 websites = {"Running Warehouse": 'https://www.runningwarehouse.com/catpage-SALEMS.html'}
 current_deals_path = current_dir + '/currentDeals.json'
 old_deals_path = current_dir + '/oldDeals.json'
-params_path = current_dir + '/params_be.json'
+params_path = current_dir + '/params.json'
 
 # parse JSON with user parameters
 with open(params_path, 'r') as file:

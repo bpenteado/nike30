@@ -1,0 +1,8 @@
+# ignore all logs
+logs/
+
+#ignore user parameters
+params.json
+
+# ignore __pycache__
+__pycache__/

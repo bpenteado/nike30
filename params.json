@@ -1,19 +1,19 @@
 {
 	"preferences": {
-		"minDiscount": "INSERT FLOAT BETWEEN 0.0 and 1.0",
-		"userSex": "INSERT STRING M OR F",
-		"userSizes": "INSERT ARRAY WITH SIZESIT"
+		"minDiscount": "0.3",
+		"userSex": "M",
+		"userSizes": "[9.0, 9.5]"
 	},
 
 	"paths": {
-		"geckoExe":"INSERT GECKO EXECUTABLE PATH",
-		"geckoLog":"INSERT GECKO LOG PATH"
+		"geckoExe":"/Users/bernardopenteado/.envs/nike30/geckodriver.exe",
+		"geckoLog":"/Users/bernardopenteado/.envs/nike30/geckodriver.log"
 	},
 	
 	"smtpParams" : {
-		"login":"INSERT EMAIL LOGIN",
-		"pass":"INSERT APP-SPECIFIC PASSWORD",
-		"host":"INSERT SMTP HOST ADDRESS",
-		"port": "INSERT SMTP PORT AS STRING"
+		"login":"bernardopbf3@gmail.com",
+		"pass":"lwhkjketskyacagk",
+		"host":"smtp.gmail.com",
+		"port": 587
 	}
 }
