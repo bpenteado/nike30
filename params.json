@@ -1,19 +1,14 @@
 {
 	"preferences": {
-		"minDiscount": "0.3",
-		"userSex": "M",
-		"userSizes": "[9.0, 9.5]"
+		"minDiscount": "",
+		"userSex": "",
+		"userSizes": ""
 	},
 
-	"paths": {
-		"geckoExe":"/Users/bernardopenteado/.envs/nike30/geckodriver.exe",
-		"geckoLog":"/Users/bernardopenteado/.envs/nike30/geckodriver.log"
-	},
-	
 	"smtpParams" : {
-		"login":"bernardopbf3@gmail.com",
-		"pass":"lwhkjketskyacagk",
-		"host":"smtp.gmail.com",
-		"port": 587
+		"login": "",
+		"pass": "",
+		"host":"",
+		"port":"" 
 	}
 }
