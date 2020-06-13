@@ -1,88 +1,54 @@
 # Nike 30%
 
-Sales sentinel for running shoes. Scrapes predetermined websites on a recurring basis and sends an email summary of new deals that fit the users' requirements (discount, price, model, sizes, etc.). Helping runners escape Nike's marketing claws.
+Sales sentinel for running shoes. Scrapes Running Warehouse and sends an email summary of new deals that fit the users' requirements (discount, price, model, sizes, etc.). Bringing back those Nike marketing dollars.
+
+![] (https://github.com/bpenteado/nike30/tree/master/assets/nike30.gif)
+
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
+If you don't have geckodriver installed:
 ```
-Give examples
+brew install geckodriver
+```
+Recommended:
+```
+brew install pipenv
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+Clone the repository.
 ```
-Give the example
+git clone https://github.com/bpenteado/nike30
 ```
 
-And repeat
-
+Create a virtual environment. Pipenv recommended:
 ```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+cd nike30
+pipenv install
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
+Set up user parameters. Example below.
 ```
-Give an example
+vim params.json
 ```
+Set up launch agent. [Tutorial here](https://davidhamann.de/2018/03/13/setting-up-a-launchagent-macos-cron/), example plist below.
+
+## Examples
+### Parameters
+### Plist
 
 ## Deployment
+Load agent:
+```
+launchtl bootstrap gui/<your-user-id> <your-plist-file>
+```
+Start agent:
+```
+launchtl kickstart -k gui/<your-user-id>/<your-plist-filename>
+```
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
