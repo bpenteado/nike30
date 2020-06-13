@@ -2,11 +2,11 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 
 
-def retrieve_current_deals(websites, gecko_exe_path, gecko_log_path):
+def retrieve_current_deals(websites):
 
 	# scrape websites
 	retrieved_deals = []
-	content = scrape_websites(websites, gecko_exe_path, gecko_log_path)
+	content = scrape_websites(websites)
 
 	# retrieve deals from each website
 	for website, content in content.items():
@@ -16,12 +16,12 @@ def retrieve_current_deals(websites, gecko_exe_path, gecko_log_path):
 	return retrieved_deals
 
 
-def scrape_websites(websites, gecko_exe_path, gecko_log_path):
+def scrape_websites(websites):
 
 	# initialize webdriver
 	options = webdriver.firefox.options.Options()
 	options.headless = True
-	driver = webdriver.Firefox(executable_path=gecko_exe_path, options=options, service_log_path=gecko_log_path)
+	driver = webdriver.Firefox(options=options)
 
 	content_dict = {}
 	for website, url in websites.items():

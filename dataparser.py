@@ -27,7 +27,7 @@ def filter_deals(deal_list, min_discount, valid_sizes):
 
 def generate_email_body(deal_list):
     n_deals = len(deal_list)
-    message = f'There are {n_deals} new deals waiting for you!\n'
+    message = f'Subject: Nike30 Deals \n\nThere are {n_deals} new deals waiting for you!\n'
     for deal in deal_list:
 
         # create strings for deal message
