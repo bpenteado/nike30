@@ -1,8 +1,9 @@
 # ignore all logs
-logs/
+*.log 
 
-#ignore user parameters
-params.json
-
-# ignore __pycache__
+# ignore cache
 __pycache__/
+
+# ignore contextual files
+currentDeals.json
+oldDeals.json
