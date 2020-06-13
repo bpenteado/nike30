@@ -2,7 +2,7 @@
 
 Sales sentinel for running shoes. Scrapes Running Warehouse and sends an email summary of new deals that fit the users' requirements (discount, price, model, sizes, etc.). Bringing back those Nike marketing dollars.
 
-![] (https://github.com/bpenteado/nike30/tree/master/assets/nike30.gif)
+![](assets/nike30.gif)
 
 
 ## Getting Started
