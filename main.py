@@ -5,7 +5,7 @@ import smtplib
 import os
 
 # default parameters
-current_dir = os.path.dirname(__file__)
+current_dir = os.path.dirname(os.path.abspath(__file__))
 websites = {"Running Warehouse": 'https://www.runningwarehouse.com/catpage-SALEMS.html'}
 current_deals_path = current_dir + '/currentDeals.json'
 old_deals_path = current_dir + '/oldDeals.json'
@@ -21,11 +21,6 @@ min_discount = user_preferences["minDiscount"]
 user_sex = user_preferences["userSex"]
 user_sizes = user_preferences["userSizes"]
 
-# set Gecko paths
-user_paths = user_params["paths"]
-gecko_exe_path = user_paths["geckoExe"]
-gecko_log_path = user_paths["geckoLog"]
-
 # set SMTP parameters
 user_smtp = user_params["smtpParams"]
 email_login = user_smtp["login"]
@@ -40,7 +35,7 @@ for size in user_sizes:
     valid_sizes += [size + " D"]
 
 # scrape websites
-current_deals = retrieve_current_deals(websites, gecko_exe_path, gecko_log_path)
+current_deals = retrieve_current_deals(websites)
 
 # store data in JSON format
 with open(current_deals_path, 'w') as outfile:
@@ -70,5 +65,3 @@ if filtered_new_deals:
 # update old deals with current_deals
 with open(old_deals_path, 'w') as data:
     json.dump(current_deals, data)
-
-print("OK")
