@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Label</key>
+        <string>com.nike30.scheduler</string>
+
+        <key>StandardErrorPath</key>
+        <string>/Users/bernardopenteado/Desktop/Projects/Nike30%/stderr.log</string>
+
+        <key>StandardOutPath</key>
+        <string>/Users/bernardopenteado/Desktop/Projects/Nike30%/stdout.log</string>
+                 
+        <key>ProgramArguments</key>
+        <array>
+          <string>/usr/local/bin/fish</string>
+          <string>/Users/bernardopenteado/Desktop/Projects/Nike30%/launchd.fish</string>
+        </array>
+
+        <key>StartCalendarInterval</key>
+        <dict>
+                <key>Hour</key>
+                <integer>23</integer>
+                <key>Minute</key>
+                <integer>45</integer>
+        </dict>
+</dict>
+</plist>
