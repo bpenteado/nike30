@@ -42,8 +42,13 @@ with open(current_deals_path, 'w') as outfile:
     json.dump(current_deals, outfile)
 
 # parse data (retrieve relevant new deals)
-with open(old_deals_path) as data:  # pull all old deals from website
-    old_deals = json.load(data)
+if os.path.isfile(old_deals_path):
+    with open(old_deals_path) as data:  # pull all old deals from website
+        old_deals = json.load(data)
+else:
+    old_deals = []
+    with open(old_deals_path, 'w') as outfile:  # create old deals tracker
+        json.dump(old_deals, outfile)
 new_deals = filter_new_deals(current_deals, old_deals)  # check for new deals
 filtered_new_deals = filter_deals(new_deals, min_discount, valid_sizes)  # filter new deals according to params
 
